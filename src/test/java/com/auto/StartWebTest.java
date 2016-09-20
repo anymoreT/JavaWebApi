@@ -17,8 +17,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.auto.Driver;
 
 public class StartWebTest {
   @Test
@@ -27,9 +29,12 @@ public class StartWebTest {
 //	  WebElement element = null;
 	  System.out.println("++++test21中国1321312");
 	  WebDriver driver = new FirefoxDriver();
+	  //WebDriver driver = new ChromeDriver();
+	  Driver.set_driver(driver);
+	  Driver.go_to_url("https://www.baidu.com");
 
       // And now use this to visit Google
-      driver.get("https://www.baidu.com");
+     // driver.get("https://www.baidu.com");
       // Alternatively the same thing can be done like this
       // driver.navigate().to("http://www.google.com");
 
