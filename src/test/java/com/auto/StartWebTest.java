@@ -21,33 +21,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.auto.Driver;
+import com.auto.Element;
 
 public class StartWebTest {
   @Test
-  public void f() {
-//	  WebDriver driver = null;
-//	  WebElement element = null;
+  public void f() {  
 	  System.out.println("++++test21中国1321312");
 	  WebDriver driver = new FirefoxDriver();
-	  //WebDriver driver = new ChromeDriver();
 	  Driver.set_driver(driver);
 	  Driver.go_to_url("https://www.baidu.com");
-
-      // And now use this to visit Google
-     // driver.get("https://www.baidu.com");
-      // Alternatively the same thing can be done like this
-      // driver.navigate().to("http://www.google.com");
-
-      // Find the text input element by its name
-      WebElement element = driver.findElement(By.name("wd"));
-
-      // Enter something to search for
-      element.sendKeys("点融网!");
-
-      // Now submit the form. WebDriver will find the form for us from the element
-      element.submit();
-
-      // Check the title of the page
+	  Element el = new Element("name", "wd1");
+      el.wait_element_present();
+//	  el.input("点融网");
+//	  new Element("id", "su").click();
       System.out.println("Page title is: " + driver.getTitle());
   }
  

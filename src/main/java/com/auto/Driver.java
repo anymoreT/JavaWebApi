@@ -19,7 +19,7 @@ public class Driver
    /*
     * 得到driver
     */
-	static public  WebDriver get_driver (WebDriver driver){
+	static public  WebDriver get_driver (){
 		return Driver.driver ;
 	}
 	
