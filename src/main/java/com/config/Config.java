@@ -1,5 +1,6 @@
 package com.config;
 import org.yaml.snakeyaml.*;
+import java.util.HashMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
@@ -17,8 +18,9 @@ public class Config {
 	        //读入文件
 	     try{
 	    	 Object result= yaml.load(new FileInputStream(f));
+	    	 HashMap result_map = (HashMap)result;
 	    	 System.out.println(result.getClass());
-	    	 System.out.println( result);
+	    	 System.out.println( ((HashMap)result_map.get("Login")).get("Demo"));
 	     }catch (Exception e){
 	    	 System.out.printf("cant read the file: %s", path.toString());
 	     }
