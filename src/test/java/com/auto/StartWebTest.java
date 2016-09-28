@@ -12,6 +12,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,7 +41,9 @@ public class StartWebTest {
   public void f1() {  
 	  WebDriver driver = new FirefoxDriver();
 	  Driver.set_driver(driver);
-	  Driver.go_to_url("https://www.dianrong.com");
+	  HashMap config_map = Config.get_yaml_config();
+	  String env =  Config.get_env();
+	  Driver.go_to_url((String)((HashMap)config_map.get("Login")).get("Demo"));
   }
  
   public void beforeMethod() {
