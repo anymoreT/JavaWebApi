@@ -15,10 +15,18 @@ public class Element {
 	 public String locator = null;
 	 public  WebElement element = null;
 	 
-	 public Element(String by_way, String locator){
+	 public Element(String common_locator_str, String special_locator){
 		 this.driver = Driver.get_driver();
-		 this.by_way = by_way;
-		 this.locator = locator;
+		 String[] locator = common_locator_str.split(";");
+		 this.by_way = locator[0];
+		 this.locator = String.format(locator[1], special_locator);
+	 }
+	 
+	 public Element(String locator_str){
+		 this.driver = Driver.get_driver();
+		 String[] locator = locator_str.split(";");
+		 this.by_way = locator[0];
+		 this.locator = locator[1];
 	 }
 	 
 	 public WebElement get_element(){
@@ -67,7 +75,7 @@ public class Element {
 			 }
 		 }
 		 if (! (this.element instanceof WebElement)){
-			 throw new AssertionError("couldn't meet element present.\n");
+			 throw new AssertionError(String.format("%s is not  present.\n", this.locator));
 		 }
 		
 	 }
