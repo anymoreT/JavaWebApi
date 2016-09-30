@@ -8,3 +8,12 @@
 >mvn test -Dtest=MyClassTest#*test*
 
  mvn test -Dtest=StartWebTest#f1
+ testng.xml需要自己生成
+ maven-surefire-plugin定义运行的testng.xml
+ 
+ 使用testng.xml时候：
+ 1. org.apache.maven.plugins，　注意  <workingDirectory>.</workingDirectory>　定义case的目录，要注意是否设置正确
+ 2.定义需要跑的testsuir, 可以加路径：　/src/test/${xmlFileName}
+ <suiteXmlFiles>
+ <suiteXmlFile>${xmlFileName}</suiteXmlFile>
+ </suiteXmlFiles>

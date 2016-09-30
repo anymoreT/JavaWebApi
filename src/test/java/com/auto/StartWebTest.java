@@ -1,6 +1,7 @@
 package com.auto;
 
 import org.testng.annotations.Test;
+import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -34,7 +35,7 @@ public class StartWebTest {
 	  WebDriver driver = new FirefoxDriver();
 	  Driver.set_driver(driver);
 	  Driver.go_to_url("https://www.baidu.com");
-	  Element el = new Element("name", "wd1");
+	  Element el = new Element("name;wd");
       el.wait_element_present();
       System.out.println("Page title is: " + driver.getTitle());
   }
@@ -64,6 +65,7 @@ public class StartWebTest {
 
   
   public void afterMethod() {
+	
   }
 
   public void beforeClass() {
@@ -79,6 +81,7 @@ public class StartWebTest {
 
 
   public void afterTest() {
+	  Driver.quit_driver();
   }
 
 

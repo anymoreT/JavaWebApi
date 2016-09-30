@@ -30,5 +30,9 @@ public class Driver
 		Driver.driver.navigate().to(url);
 	}
 	
+	public static void quit_driver(){
+		Driver.driver.quit();
+	}
+	
 
 }
