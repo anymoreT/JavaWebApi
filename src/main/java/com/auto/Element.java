@@ -15,6 +15,9 @@ public class Element {
 	 public String locator = null;
 	 public  WebElement element = null;
 	 
+	 /*
+	  * 使用时，需要在调用的时候，传入特定的参数
+	  */
 	 public Element(String common_locator_str, String special_locator){
 		 this.driver = Driver.get_driver();
 		 String[] locator = common_locator_str.split(";");
@@ -22,6 +25,9 @@ public class Element {
 		 this.locator = String.format(locator[1], special_locator);
 	 }
 	 
+	 /*
+	  * 使用时，需要在调用的时候，传入特定的参数
+	  */
 	 public Element(String locator_str){
 		 this.driver = Driver.get_driver();
 		 String[] locator = locator_str.split(";");

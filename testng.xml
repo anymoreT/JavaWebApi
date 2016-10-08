@@ -4,6 +4,7 @@
   <test name="Test">
     <classes>
       <class name="com.auto.StartWebTest"/>
+       <class name="com.auto.TestHttp"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

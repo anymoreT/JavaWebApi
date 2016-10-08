@@ -17,3 +17,8 @@
  <suiteXmlFiles>
  <suiteXmlFile>${xmlFileName}</suiteXmlFile>
  </suiteXmlFiles>
+ 
+ maven-compiler-plugin：　可以通过配置这个插件，来指定编译的路径
+ 编译测试代码使用： mvn test-compile
+ 编译项目代码使用： mvn test-compile
+ 
