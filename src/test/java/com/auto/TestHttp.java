@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.testng.annotations.Test;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class TestHttp {
      @Test
@@ -23,9 +25,9 @@ public class TestHttp {
 		    try{
 		        CloseableHttpResponse response = httpclient.execute(httpGet);
 		        HttpEntity entity = response.getEntity();  
-//		        System.out.println(EntityUtils.toString(entity));  
-//		        System.out.println(response.toString());
-//		        System.out.println(response.getStatusLine().getStatusCode());
+		        String response_str =  EntityUtils.toString(entity, "utf-8");
+		        EntityUtils.consume(entity);
+
 		    }
 		    catch(Exception e){
 		    	e.printStackTrace();
