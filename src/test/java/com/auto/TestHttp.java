@@ -23,7 +23,9 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.JsonNodeFactory;
+import org.testng.Assert;
 
+import com.auto.HttpHandle;
 
 
 
@@ -31,31 +33,36 @@ import org.codehaus.jackson.node.JsonNodeFactory;
 public class TestHttp {
      @Test
 	 public void test_get_http(){
-		  CloseableHttpClient httpclient = HttpClients.createDefault();
-		    HttpGet httpGet = new HttpGet("https://drac-demo.dianrong.com/adminconsole/api/actor/11335844/investSummary");
-		    try{
-		        CloseableHttpResponse response = httpclient.execute(httpGet);
-		        HttpEntity entity = response.getEntity();  
-		        String response_str =  EntityUtils.toString(entity, "utf-8");
-		        EntityUtils.consume(entity);
-		        
-		        try {
-		        	 ObjectMapper mapper = new ObjectMapper(); 
-		        	 Map m = mapper.readValue(response_str, Map.class);
-		        	 System.out.println(m.get("content"));
-		        }
-		        catch (JsonParseException e) {
-		            e.printStackTrace();
-		        } catch (JsonMappingException e) {
-		            e.printStackTrace();
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-
-		    }
-		    catch(Exception e){
-		    	e.printStackTrace();
-		    }
-		    
+    	  HttpHandle httpHandle =  new HttpHandle();
+    	 String url = "https://drac-demo.dianrong.com/adminconsole/api/actor/11335844/investSummary";
+    	  Map respnse_map = httpHandle.do_get(url);
+    	  System.out.println(respnse_map);
+//		  CloseableHttpClient httpclient = HttpClients.createDefault();
+//		    HttpGet httpGet = new HttpGet("https://drac-demo.dianrong.com/adminconsole/api/actor/11335844/investSummary");
+//		    try{
+//		        CloseableHttpResponse response = httpclient.execute(httpGet);
+//		        HttpEntity entity = response.getEntity();  
+//		        String response_str =  EntityUtils.toString(entity, "utf-8");
+//		        EntityUtils.consume(entity);
+//		        
+//		        try {
+//		        	 ObjectMapper mapper = new ObjectMapper(); 
+//		        	 Map m = mapper.readValue(response_str, Map.class);
+//		        	 System.out.println(m.get("content"));
+//		        	 
+//		        }
+//		        catch (JsonParseException e) {
+//		            e.printStackTrace();
+//		        } catch (JsonMappingException e) {
+//		            e.printStackTrace();
+//		        } catch (IOException e) {
+//		            e.printStackTrace();
+//		        }
+//
+//		    }
+//		    catch(Exception e){
+//		    	e.printStackTrace();
+//		    }
+//		    
 	 }
 }
