@@ -65,4 +65,28 @@ public class TestHttp {
 //		    }
 //		    
 	 }
+     
+     public void test_post(){
+    	 	CloseableHttpClient httpclient = HttpClients.createDefault();
+    	 	HttpPost httpPost = new HttpPost("http://uniauth-demo.sl.com/ws/rs/user/usedetailinfo");
+		    try{
+		        CloseableHttpResponse response = httpclient.execute(httpPost);
+		        HttpEntity entity = response.getEntity();  
+		        String response_str =  EntityUtils.toString(entity, "utf-8");
+		        EntityUtils.consume(entity);
+		       ObjectMapper mapper = new ObjectMapper(); 
+		       Map m = mapper.readValue(response_str, Map.class);
+		    }
+		   catch(Exception e){
+			   e.printStackTrace();
+		        	
+		        }
+		    }
+     }
+     
+     
+     
+     
+     
+     
 }
