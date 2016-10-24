@@ -97,8 +97,8 @@
 <artifactId>maven-compiler-plugin</artifactId>
 <version>2.0.2</version>
 <configuration>
-<source>1.5</source>
-<target>1.5</target>
+<source>1.7</source>
+<target>1.7</target>
 </configuration>
 </plugin>
        <!-- 添加插件,添加ReportNg的监听器，修改最后的TestNg的报告,xmlFileName在前面已经定义了 -->
