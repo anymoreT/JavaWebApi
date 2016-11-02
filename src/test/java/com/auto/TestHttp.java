@@ -19,6 +19,7 @@ import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.testng.annotations.Test;
@@ -33,6 +34,7 @@ import org.codehaus.jackson.node.JsonNodeFactory;
 import org.testng.Assert;
 
 import com.auto.HttpHandle;
+import com.auto.JacksonUtil;
 
 //import net.sf.json.JSONObject;
 
@@ -57,9 +59,15 @@ public class TestHttp {
 		        params.add(new BasicNameValuePair("account", "yong.huang@dianrong.com"));
 		        EntityBuilder entity_post =  EntityBuilder.create().setParameters(new ArrayList<NameValuePair>());
 		        entity_post.setContentType(ContentType.APPLICATION_JSON);
-//		        entity_post.setParameters(new BasicNameValuePair("account", "yong.huang@dianrong.com"));
-		        entity_post.setText("{ \"account\": \"yong.huang@dianrong.com\"}");
+    	      //  entity_post.setParameters(new NameValuePair("account", "yong.huang@dianrong.com"));
+		       NameValuePair [] values = new NameValuePair[1];
+		       values[0] = new BasicNameValuePair("account", "yong.huang@dianrong.com");
+		       entity_post.setParameters(values);
+		       // entity_post.setText("{ \"account\": \"yong.huang@dianrong.com\"}");
 		      
+		        
+		        
+		        
 		        httpPost.setEntity(entity_post.build());
 		        
 		        
@@ -86,9 +94,14 @@ public class TestHttp {
 		    	httpPost.setHeader("Content-Type", "application/json");
 //		        List params=new ArrayList();
 //		        params.add(new BasicNameValuePair("account", "yong.huang@dianrong.com"));
-               httpPost.setEntity(new StringEntity("{ \"account\": \"yong.huang@dianrong.com\"}"));
-		
-		        
+             //  httpPost.setEntity(new StringEntity("{ \"account\": \"yong.huang@dianrong.com\"}"));
+               String jsonStr = "{ \"account\": \"yong.huang1@dianrong.com\"}";
+              Map json_map =  JacksonUtil.readValue(jsonStr, HashMap.class);
+              json_map.put("account", "yong.huang@dianrong.com");
+              jsonStr = JacksonUtil.toJSon(json_map);
+              httpPost.setEntity(new StringEntity(jsonStr));
+              
+              
 		        CloseableHttpResponse response = httpclient.execute(httpPost);
 		        HttpEntity entity = response.getEntity();  
 		        String response_str =  EntityUtils.toString(entity, "utf-8");

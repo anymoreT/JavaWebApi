@@ -3,6 +3,8 @@ package com.auto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+
 /**
  * The class JacksonUtil
  *
