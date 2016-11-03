@@ -22,6 +22,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 
 
 
@@ -35,6 +36,7 @@ public class HttpHandle {
 	 public HttpRequestBase request;
 	 private EntityBuilder builder; //Post, put请求的参数
 	 private URIBuilder uriBuilder; //get, delete请求的参数
+	 private String post_payLoad;
 	 
 	 
 	 public HttpHandle(){
@@ -44,6 +46,7 @@ public class HttpHandle {
 	     this.repnse_entity = null;
 	     this.response_map = null;
 	     this.request = null;
+	     this.post_payLoad = null;
 	     this.builder = EntityBuilder.create().setParameters(new ArrayList<NameValuePair>());
 	 }
 	 
@@ -74,21 +77,28 @@ public class HttpHandle {
 		return this.response_map;
 	}
 	
-	public  Map do_post(String url){
+	public void set_post_playLoad(String payload){
+		this.post_payLoad = payload;
+	}
+	
+	public  void do_post(String url){
 		this.request = new HttpPost(url);
 		try{
 			//this.reponse = this.httpclient.execute(this.request);
 			this.request.setHeader("Content-Type", "application/json");
-	        List params=new ArrayList();
-	        params.add(new BasicNameValuePair("account", "yong.huang@dianrong.com"));
-//	        HttpClientContext context = HttpClientContext.create();  
-//	        this.request.setEntity(new UrlEncodedFormEntity(params));
-//			
+			HttpPost httPost = 	(HttpPost)this.request;
+			httPost.setEntity(new StringEntity(this.post_payLoad));
+	        CloseableHttpResponse response = httpclient.execute(httPost);
+	        HttpEntity entity = response.getEntity();  
+	        String response_str =  EntityUtils.toString(entity, "utf-8");
+	        System.out.print(response.getStatusLine());
+	        System.out.println(response_str);
+	        EntityUtils.consume(entity);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return this.response_map;
+		
 	}
 	
 

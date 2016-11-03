@@ -136,21 +136,11 @@ public class TestHttp {
      @Test
      public void  test_httpUtil_post(){
     	 String url = "http://uniauth-demo.sl.com/ws/rs/user/usedetailinfo";
-    	 HttpUtils http = HttpUtils.post(url);
-    	// http.addParameter("wd", "java 核心技术"); //搜索关键字
-    	// http.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:39.0) Gecko/20100101 Firefox/39.0");
-        http.addHeader("Content-Type", "application/json");
-        String json = "{ \"account\": \"yong.huang@dianrong.com\"}";
-        ObjectMapper mapper = new ObjectMapper();  
-     //   Map json_map =  mapper.readValue(json, Map.class);  
-        
-        http.setParameter(json);
-
-    	 // http.setProxy("10.10.12.62", 3128); //设置代理
-    	 ResponseWrap response = http.execute(); //执行请求
-    	 System.out.println(response.getString()); //输出内容
-    	 response.transferTo("./post_json.txt"); //输出到文件
-    	 http.shutdown();
+         String jsonStr = "{ \"account\": \"yong.huang@dianrong.com\"}";
+    	 HttpHandle httpHandle =  new HttpHandle();
+    	 httpHandle.set_post_playLoad(jsonStr);
+    	 httpHandle.do_post(url);
+    
      }
       
      
