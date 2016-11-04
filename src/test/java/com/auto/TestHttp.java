@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.util.EntityUtils;  
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 import org.testng.annotations.Test;
 
 import org.codehaus.jackson.JsonEncoding;
@@ -35,8 +37,15 @@ import org.testng.Assert;
 
 import com.auto.HttpHandle;
 import com.auto.JacksonUtil;
-
+import org.apache.http.util.EntityUtils;
 //import net.sf.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import java.io.IOException;
+
 
 
 
@@ -46,8 +55,8 @@ public class TestHttp {
 	 public void test_get_http(){
     	  HttpHandle httpHandle =  new HttpHandle();
     	  String url = "https://drac-demo.dianrong.com/adminconsole/api/actor/11335844/investSummary";
-    	  Map respnse_map = httpHandle.do_get(url);
-    	  System.out.println(respnse_map);    
+  	      httpHandle.do_get(url);
+
 	 }
      
      @Test
@@ -140,10 +149,60 @@ public class TestHttp {
     	 HttpHandle httpHandle =  new HttpHandle();
     	 httpHandle.set_post_playLoad(jsonStr);
     	 httpHandle.do_post(url);
-    
      }
       
-     
+   
+     @Test
+     public void  test_login_crm(){
+  
+    	 
+
+    	 
+    	 String url = "https://passport-demo.dianrong.com/login?service=https%3A%2F%2Fcrm-demo.dianrong.com%2Flogin%2Fcas";
+    	 HttpHandle httpHandle =  new HttpHandle();
+    	 httpHandle.do_get(url);
+    	 HttpEntity entity = httpHandle.get_response_entity();
+    	 try{
+    		 String str =  EntityUtils.toString(entity, "utf-8");
+    		 Document doc = Jsoup.parse(str);
+    		 Elements lt_element = doc.select("input[name=lt]"); 
+    		 Elements execution_element = doc.select("input[name=execution]"); 
+    		 String lt_value = lt_element.attr("value");
+    		 String execution_value = execution_element.attr("value");
+    		// System.out.println(str); 
+//    		 System.out.println(lt_value); 
+//    		 System.out.println(execution_value); 
+    		 
+    	  	 Map json_map =  new HashMap();
+        	 json_map.put("username", 1);
+        	 json_map.put("password", true);
+        	 json_map.put("lt", lt_value);
+        	 json_map.put("execution", execution_value);
+         	 json_map.put("domain", "https%3A%2F%2Fcrm-demo.dianrong.com%2Flogin%2Fcas");
+        	 json_map.put("_eventId", "submit");
+        	 json_map.put("submit", "登录");
+        	 String jsonStr = JacksonUtil.toJSon(json_map);
+        	 System.out.println(jsonStr);
+        	 url = "https://passport-demo.dianrong.com/login?service=https%3A%2F%2Fcrm-demo.dianrong.com%2Flogin%2Fcas";
+        	 httpHandle.do_post(url);
+        	 httpHandle.set_post_playLoad(jsonStr);
+        	 httpHandle.execute();
+        	entity = httpHandle.get_response_entity();
+        	Header[] headers = httpHandle.get_reponse_header();
+        	for(Header header: headers){
+        		System.out.println(header.toString());
+        	}
+//        	str =  EntityUtils.toString(entity, "utf-8");
+//       	   System.out.println(str);
+       	   
+       	   
+       	   
+    	 }
+    	 catch(Exception e){
+    		 e.printStackTrace();
+    	 }
+     }
+      
      
      
 }

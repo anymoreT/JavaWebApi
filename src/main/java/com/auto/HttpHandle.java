@@ -1,10 +1,12 @@
 package com.auto;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 import  org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.EntityBuilder;
@@ -37,6 +39,7 @@ public class HttpHandle {
 	 private EntityBuilder builder; //Post, put请求的参数
 	 private URIBuilder uriBuilder; //get, delete请求的参数
 	 private String post_payLoad;
+	 private  String request_type;
 	 
 	 
 	 public HttpHandle(){
@@ -47,57 +50,57 @@ public class HttpHandle {
 	     this.response_map = null;
 	     this.request = null;
 	     this.post_payLoad = null;
+	     this.request_type = null;
 	     this.builder = EntityBuilder.create().setParameters(new ArrayList<NameValuePair>());
 	 }
 	 
-	public  Map do_get(String url){
+	public  void do_get(String url){
+		this.request_type = "get";
 		this.request = new HttpGet(url);
 		try {
-		this.reponse = this.httpclient.execute(this.request);
-		this.repnse_entity = this.reponse.getEntity();  
-        this.response_str =  EntityUtils.toString(this.repnse_entity, "utf-8");
-        EntityUtils.consume(this.repnse_entity);
-        try {
-        	ObjectMapper mapper = new ObjectMapper(); 
-        	this.response_map = mapper.readValue(response_str, Map.class);
-        		}
-        catch (JsonParseException e) {
-           e.printStackTrace();
-        	}
-        catch (JsonMappingException e) {
-        		e.printStackTrace();
-        	} catch (IOException e) {
-           e.printStackTrace();
-       }
-        
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		return this.response_map;
-	}
-	
-	public void set_post_playLoad(String payload){
-		this.post_payLoad = payload;
-	}
-	
-	public  void do_post(String url){
-		this.request = new HttpPost(url);
-		try{
-			//this.reponse = this.httpclient.execute(this.request);
-			this.request.setHeader("Content-Type", "application/json");
-			HttpPost httPost = 	(HttpPost)this.request;
-			httPost.setEntity(new StringEntity(this.post_payLoad));
-	        CloseableHttpResponse response = httpclient.execute(httPost);
-	        HttpEntity entity = response.getEntity();  
-	        String response_str =  EntityUtils.toString(entity, "utf-8");
-	        System.out.print(response.getStatusLine());
-	        System.out.println(response_str);
-	        EntityUtils.consume(entity);
+			this.reponse = this.httpclient.execute(this.request);
+//			this.repnse_entity = this.reponse.getEntity();  
+//			this.response_str =  EntityUtils.toString(this.repnse_entity, "utf-8");
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
+
+	}
+	public HttpEntity get_response_entity(){
+		return  this.reponse.getEntity();  
+	}
+	
+	public  Header[] get_reponse_header(){
+		  return  this.reponse.getAllHeaders();
+	}
+	
+	public void set_post_playLoad(String payload){
+		if (this.request_type.equals("post")){
+			this.post_payLoad = payload;
+			try{
+				((HttpPost)this.request).setEntity(new StringEntity(this.post_payLoad));
+			}
+			catch(Exception e){
+				e.printStackTrace();
+		    }
+		}
+	}
+	
+   public void execute(){
+		try{
+			this.request.setHeader("Content-Type", "application/json");
+			this.reponse = httpclient.execute(((HttpPost)this.request));
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+   }
+	
+	public  void do_post(String url){
+		this.request_type = "post";
+		this.request = new HttpPost(url);
+	
 		
 	}
 	

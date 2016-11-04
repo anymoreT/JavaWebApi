@@ -27,6 +27,8 @@ import com.auto.Driver;
 import com.auto.Element;
 import com.config.Config;
 import com.pagesElements.*;
+import org.apache.http.util.EntityUtils;
+
 
 public class StartWebTest {
   @Test
