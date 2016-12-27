@@ -22,3 +22,5 @@
  编译测试代码使用： mvn test-compile
  编译项目代码使用： mvn test-compile
  
+ application/x-www-form-urlencoded ：　不是form　json格式，不能用json去处理
+ 

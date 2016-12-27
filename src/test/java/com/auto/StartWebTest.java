@@ -53,7 +53,7 @@ public class StartWebTest {
 	  Element el;
 	  el = new Element(Login.userName);
 	  el.wait_element_present();
-      el.input("admin_member1@dianrong.com");
+      el.input("admin_member1@test.com");
       el = new Element(Login.password);
       el.input("$cdu1234R");
       el = new Element(Login.loginButton);

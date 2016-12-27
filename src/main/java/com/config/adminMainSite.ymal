@@ -1,10 +1,10 @@
 Env: "Demo"
 Login:
     Dev:
-    Demo: "https://drac-demo.dianrong.com/"
+    Demo: "https://drac-demo.test.com/"
  
 Account:
    Dev:
      Member0: ""
    Demo:
-     Member0: yong.huang1@dianrong.com,$cdu1234R
+     Member0: yong.huang1@test.com,$cdu1234R
