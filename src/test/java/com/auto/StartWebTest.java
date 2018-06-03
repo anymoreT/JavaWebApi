@@ -2,6 +2,7 @@ package com.auto;
 
 import org.testng.annotations.Test;
 
+
 import com.seleniumFunction.Element;
 
 import org.openqa.selenium.WebDriver;
@@ -10,10 +11,10 @@ import com.seleniumFunction.Driver;
 import com.pagesElements.*;
 
 
+
 public class StartWebTest {
   @Test
-  public void f() {  
-
+  public void f() {
 	 // WebDriver driver = new FirefoxDriver();
 //      ChromeOptions options = new ChromeOptions();
 //      options.setBinary("D:\\tools\\chromedriver_win32\\chromedriver.exe");
@@ -28,10 +29,11 @@ public class StartWebTest {
 
 	  el = new Element(BAIDUPAGE.INPUTSTR);
 	  el.wait_element_present();
-      el.input("黄勇m");
+      el.input("what's your name");
 
       el = new Element(BAIDUPAGE.SEARCHBUTTON);
       el.click();
+
 
   }
  
